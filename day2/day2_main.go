@@ -27,8 +27,7 @@ func ReadInput() []string {
 	return lines
 }
 
-func main() {
-	input := ReadInput()
+func Part1(input []string) {
 	safeCount := 0
 	for _, value := range input {
 		split := strings.Fields(value)
@@ -37,7 +36,43 @@ func main() {
 		}
 		safeCount += IsSafe(split)
 	}
-	fmt.Println("The number of safe reports is: ", safeCount)
+	fmt.Println("Part1: the number of safe reports is: ", safeCount)
+
+}
+
+func Part2(input []string) {
+	safeCount := 0
+	for _, value := range input {
+		split := strings.Fields(value)
+		if len(split) == 0 {
+			continue
+		}
+		safeCount += Part2IsSafe(split)
+	}
+	fmt.Println("Part2: the number of safe reports is: ", safeCount)
+}
+
+func Part2IsSafe(report []string) int {
+	// [0, 1, 2, 3, 4]
+	// i = 0, 0:0, 1:5 [1, 2, 3, 4]
+	// i = 1, 0:1, 2:5 [0, 2, 3, 4]
+	// i = 2, 0:2, 3:5 [0, 1, 3, 4]
+	// i = 3, 0:3, 4:5 [0, 1, 2, 4]
+	// i = 4, 0:4, 5:5 [0, 1, 2, 3]
+	for i := range report {
+		list := append(report[:i:i], report[i+1:]...)
+		fmt.Println("Checking if list is safe: ", list)
+		if IsSafe(list) == 1 {
+			return 1
+		}
+	}
+	return 0
+}
+
+func main() {
+	input := ReadInput()
+	Part1(input)
+	Part2(input)
 }
 
 func IsSafe(report []string) int {
@@ -72,7 +107,7 @@ func IsSafe(report []string) int {
 
 		lastValue = currValue
 	}
-	fmt.Println(report, "Is Safe")
+	// fmt.Println(report, "Is Safe")
 	return 1
 }
 
