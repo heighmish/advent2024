@@ -1,9 +1,8 @@
 package main
 
 import (
-	"bufio"
+	"advent2024/utils"
 	"fmt"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
@@ -13,28 +12,6 @@ func main() {
 	fmt.Println("Running Advent2024 Day 1")
 	Part1()
 	Part2()
-}
-
-func ReadInput() []string {
-	file, err := os.Open("input.txt")
-	if err != nil {
-		panic("Unable to open input.txt file")
-	}
-	defer file.Close()
-
-	var lines []string
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
-	}
-
-	return lines
-
 }
 
 func ParseInputToListsOfInts(input []string) ([]int, []int) {
@@ -51,7 +28,7 @@ func ParseInputToListsOfInts(input []string) ([]int, []int) {
 }
 
 func Part1() {
-	var input = ReadInput()
+	var input = utils.ReadLines("input.txt")
 	fmt.Println("Length of input read is: ", len(input))
 	array1, array2 := ParseInputToListsOfInts(input)
 
@@ -71,7 +48,7 @@ func Part1() {
 }
 
 func Part2() {
-	var input = ReadInput()
+	var input = utils.ReadLines("input.txt")
 	fmt.Println("Length of input read is: ", len(input))
 	array1, array2 := ParseInputToListsOfInts(input)
 

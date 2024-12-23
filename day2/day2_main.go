@@ -1,31 +1,11 @@
 package main
 
 import (
-	"bufio"
+	"advent2024/utils"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
 )
-
-func ReadInput() []string {
-	file, err := os.Open("input.txt")
-	if err != nil {
-		panic("Unable to open file")
-	}
-
-	scanner := bufio.NewScanner(file)
-	var lines []string
-	for scanner.Scan() {
-		lines = append(lines, scanner.Text())
-	}
-
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
-	}
-
-	return lines
-}
 
 func Part1(input []string) {
 	safeCount := 0
@@ -70,7 +50,7 @@ func Part2IsSafe(report []string) int {
 }
 
 func main() {
-	input := ReadInput()
+	input := utils.ReadLines("input.txt")
 	Part1(input)
 	Part2(input)
 }
